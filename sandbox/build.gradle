@@ -1,6 +1,15 @@
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'idea'
-mainClassName = "MyFirst"
+mainClassName = "ru.JavaLearn.sandbox.MyFirstProgram1"
 
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation 'org.testng:testng:7.0.0-beta7'
+}
 
+test {
+    useTestNG()
+}
