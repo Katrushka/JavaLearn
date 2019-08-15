@@ -19,7 +19,7 @@ public class GroupCreationTests {
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        login("admin");
+        login("admin", "secret");
     }
 
     @Test
@@ -31,7 +31,7 @@ public class GroupCreationTests {
 
         goToGroupPage();
         initGroupCreation();
-        fillCreationForm();
+        fillCreationForm(new GroupData("test1", "test2", "test3"));
         submitGroupCreationForm();
         returnToGroupPage();
 
@@ -49,16 +49,16 @@ public class GroupCreationTests {
         driver.findElement(By.name("submit")).click();
     }
 
-    private void fillCreationForm() {
+    private void fillCreationForm(GroupData groupData) {
         driver.findElement(By.name("group_name")).click();
         driver.findElement(By.name("group_name")).clear();
-        driver.findElement(By.name("group_name")).sendKeys("test1");
+        driver.findElement(By.name("group_name")).sendKeys(groupData.getName());
         driver.findElement(By.name("group_header")).click();
         driver.findElement(By.name("group_header")).clear();
-        driver.findElement(By.name("group_header")).sendKeys("test2");
+        driver.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
         driver.findElement(By.name("group_footer")).click();
         driver.findElement(By.name("group_footer")).clear();
-        driver.findElement(By.name("group_footer")).sendKeys("test3");
+        driver.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
     }
 
     private void initGroupCreation() {
