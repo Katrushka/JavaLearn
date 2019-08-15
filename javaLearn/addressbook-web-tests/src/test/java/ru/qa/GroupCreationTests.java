@@ -19,6 +19,7 @@ public class GroupCreationTests {
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        login("admin");
     }
 
     @Test
@@ -27,17 +28,28 @@ public class GroupCreationTests {
 
     @Test
     public void testGroupCreationTests() throws Exception {
-        driver.get("http://localhost/addressbook/");
-        driver.findElement(By.name("user")).click();
-        driver.findElement(By.name("user")).clear();
-        driver.findElement(By.name("user")).sendKeys("admin");
-        driver.findElement(By.id("LoginForm")).click();
-        driver.findElement(By.name("pass")).click();
-        driver.findElement(By.name("pass")).clear();
-        driver.findElement(By.name("pass")).sendKeys("secret");
-        driver.findElement(By.xpath("//input[@value='Login']")).click();
-        driver.findElement(By.linkText("groups")).click();
-        driver.findElement(By.name("new")).click();
+
+        goToGroupPage();
+        initGroupCreation();
+        fillCreationForm();
+        submitGroupCreationForm();
+        returnToGroupPage();
+
+    }
+
+    private void returnToGroupPage() {
+        driver.findElement(By.linkText("group page")).click();
+    }
+
+    private void logout() {
+        driver.findElement(By.linkText("Logout")).click();
+    }
+
+    private void submitGroupCreationForm() {
+        driver.findElement(By.name("submit")).click();
+    }
+
+    private void fillCreationForm() {
         driver.findElement(By.name("group_name")).click();
         driver.findElement(By.name("group_name")).clear();
         driver.findElement(By.name("group_name")).sendKeys("test1");
@@ -47,14 +59,33 @@ public class GroupCreationTests {
         driver.findElement(By.name("group_footer")).click();
         driver.findElement(By.name("group_footer")).clear();
         driver.findElement(By.name("group_footer")).sendKeys("test3");
-        driver.findElement(By.name("submit")).click();
-        driver.findElement(By.linkText("group page")).click();
-        driver.findElement(By.linkText("Logout")).click();
+    }
+
+    private void initGroupCreation() {
+        driver.findElement(By.name("new")).click();
+    }
+
+    private void goToGroupPage() {
+        driver.findElement(By.linkText("groups")).click();
+    }
+
+    private void login(String username, String password) {
+        driver.get("http://localhost/addressbook/");
+        driver.findElement(By.name("user")).click();
+        driver.findElement(By.name("user")).clear();
+        driver.findElement(By.name("user")).sendKeys(username);
+        driver.findElement(By.id("LoginForm")).click();
+        driver.findElement(By.name("pass")).click();
+        driver.findElement(By.name("pass")).clear();
+        driver.findElement(By.name("pass")).sendKeys(password);
+        driver.findElement(By.xpath("//input[@value='Login']")).click();
     }
 
     @AfterClass(alwaysRun = true)
     public void tearDown() throws Exception {
+
         driver.quit();
+
 
     }
 
