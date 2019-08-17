@@ -1,4 +1,4 @@
-package ru.qa;
+package ru.qa.model;
 
 public class GroupData {
     private final String name;

@@ -1,4 +1,4 @@
-package ru.qa;
+package ru.qa.model;
 
 public class ContractData {
     private final String firstname;
