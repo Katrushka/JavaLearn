@@ -1,7 +1,6 @@
 package ru.qa.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
@@ -10,9 +9,10 @@ public class ApplicationManager {
 
 
     public FirefoxDriver wd;
-    public GroupHelper groupHelper;
-    public NavigationHelper navigationHelper;
-    public ContactHelper contactHelper;
+    private GroupHelper groupHelper;
+    private NavigationHelper navigationHelper;
+    private ContactHelper contactHelper;
+    private SessionHelper sessionHelper;
 
 
     public void init() {
@@ -22,7 +22,8 @@ public class ApplicationManager {
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         contactHelper = new ContactHelper(wd);
-        login("admin", "secret");
+        sessionHelper = new SessionHelper(wd);
+        sessionHelper.login("admin", "secret");
     }
 
 
@@ -30,28 +31,12 @@ public class ApplicationManager {
         wd.findElement(By.linkText("Logout")).click();
     }
 
-    public void login(String username, String password) {
-        wd.get("http://localhost/addressbook/");
-        wd.findElement(By.name("user")).click();
-        wd.findElement(By.name("user")).sendKeys(username);
-        wd.findElement(By.id("LoginForm")).click();
-        wd.findElement(By.name("pass")).click();
-        wd.findElement(By.name("pass")).sendKeys(password);
-        wd.findElement(By.xpath("//input[@value='Login']")).click();
-    }
 
     public void stop() {
         wd.quit();
     }
 
-    public boolean isElementPresent(By by) {
-        try {
-            wd.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
+
 
 
     public GroupHelper getGroupHelper() {

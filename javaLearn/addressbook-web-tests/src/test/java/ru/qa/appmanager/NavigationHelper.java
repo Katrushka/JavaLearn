@@ -3,11 +3,11 @@ package ru.qa.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class NavigationHelper {
-    FirefoxDriver wd;
+public class NavigationHelper extends HelperBase {
+
 
     public NavigationHelper(FirefoxDriver wd) {
-        this.wd = wd;
+         super(wd);
     }
 
     public void goToHomePage() {
@@ -16,12 +16,12 @@ public class NavigationHelper {
 
     public void goToGroupPage() {
 
-        wd.findElement(By.linkText("groups")).click();
+        click(By.linkText("groups"));
     }
 
     public void goToContactPage() {
 
-        wd.findElement(By.linkText("add new")).click();
+        click(By.linkText("add new"));
     }
 
 

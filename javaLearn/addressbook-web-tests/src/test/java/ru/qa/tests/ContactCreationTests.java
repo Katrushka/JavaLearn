@@ -1,7 +1,7 @@
 package ru.qa.tests;
 
 import org.testng.annotations.Test;
-import ru.qa.model.ContractData;
+import ru.qa.model.ContactData;
 
 public class ContactCreationTests extends TestBase {
 
@@ -10,7 +10,7 @@ public class ContactCreationTests extends TestBase {
     public void testContactCreation() throws Exception {
 
         app.getNavigationHelper().goToContactPage();
-        app.getContactHelper().fillCreationForm(new ContractData("Ivan", "Petrovic", "Ivanov", "89994445533"));
+        app.getContactHelper().fillCreationForm(new ContactData("Ivan", "Petrovic", "Ivanov", "89994445533"));
         app.getContactHelper().submitCreation();
         app.getNavigationHelper().goToContactPage();
     }
